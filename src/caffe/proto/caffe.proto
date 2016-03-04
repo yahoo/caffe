@@ -794,6 +794,10 @@ message MemoryDataParameter {
   optional bool share_in_parallel = 5 [default = true];
   // Specify location of source
   optional string source = 6;
+  // SQL statements to select columns from dataframes
+  repeated string dataframe_column_select = 7;
+  // Is image data encoded in dataframes?
+  optional bool image_encoded = 8 [default = false];
 }
 
 message MVNParameter {
