@@ -799,7 +799,7 @@ message MemoryDataParameter {
   // Is image data encoded in dataframes?
   optional bool image_encoded = 8 [default = false];
   // Format of dataframe data source: parquest,json,etc. 
-  optional string dataframe_format = 10004 [default = "parquet"];
+  optional string dataframe_format = 9 [default = "parquet"];
 }
 
 message MVNParameter {
