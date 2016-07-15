@@ -16,7 +16,7 @@ inline void CaffeMallocHost(void** ptr, size_t size, bool* use_cuda,
                             int* alloc_device) {
 #ifndef CPU_ONLY
   if (Caffe::mode() == Caffe::GPU) {
-    CUDA_CHECK(cudaGetDevice(gpu_device));
+    CUDA_CHECK(cudaGetDevice(alloc_device));
     CUDA_CHECK(cudaMallocHost(ptr, size));
     *use_cuda = true;
     return;
