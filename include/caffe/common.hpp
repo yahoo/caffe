@@ -155,8 +155,9 @@ class Caffe {
   static void DeviceQuery();
   // Check if specified device is available
   static bool CheckDevice(const int device_id);
-  // Get the first available device id since start_id
-  static int GrabDevice(const int start_id = 0);
+  // Search from start_id to the highest possible device ordinal,
+  // return the ordinal of the first available device.
+  static int FindDevice(const int start_id = 0);
   // Parallel training info
   inline static int solver_count() { return Get().solver_count_; }
   inline static void set_solver_count(int val) { Get().solver_count_ = val; }

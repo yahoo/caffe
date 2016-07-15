@@ -380,7 +380,7 @@ void P2PSync<Dtype>::on_gradients_ready() {
 }
 
 template<typename Dtype>
-void P2PSync<Dtype>::prepare(const vector<int>& gpus,
+void P2PSync<Dtype>::Prepare(const vector<int>& gpus,
             vector<shared_ptr<P2PSync<Dtype> > >* syncs) {
   // Pair devices for map-reduce synchronization
   vector<DevicePair> pairs;
@@ -418,9 +418,9 @@ void P2PSync<Dtype>::prepare(const vector<int>& gpus,
 }
 
 template<typename Dtype>
-void P2PSync<Dtype>::run(const vector<int>& gpus) {
+void P2PSync<Dtype>::Run(const vector<int>& gpus) {
   vector<shared_ptr<P2PSync<Dtype> > > syncs(gpus.size());
-  prepare(gpus, &syncs);
+  Prepare(gpus, &syncs);
 
   LOG(INFO)<< "Starting Optimization";
 
