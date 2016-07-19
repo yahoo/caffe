@@ -238,6 +238,18 @@ shared_ptr<Layer<Dtype> > GetTanHLayer(const LayerParameter& param) {
 
 REGISTER_LAYER_CREATOR(TanH, GetTanHLayer);
 
+// Layers that use their constructor as their default creator should be
+// registered in their corresponding cpp files. Do not registere them here.
+template<typename Dtype>
+Blob<Dtype>* GetTopBlob(const shared_ptr<LayerParameter>& param, int top_id) {
+  return new Blob<Dtype>();
+}
+
+template Blob<float>* GetTopBlob(const shared_ptr<LayerParameter>& param,
+				 int top_id);
+template Blob<double>* GetTopBlob(const shared_ptr<LayerParameter>& param,
+				  int top_id);
+
 #ifdef WITH_PYTHON_LAYER
 template <typename Dtype>
 shared_ptr<Layer<Dtype> > GetPythonLayer(const LayerParameter& param) {
