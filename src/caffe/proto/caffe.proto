@@ -404,6 +404,7 @@ message LayerParameter {
   optional ThresholdParameter threshold_param = 128;
   optional TileParameter tile_param = 138;
   optional WindowDataParameter window_data_param = 129;
+  optional CoSDataParameter cos_data_param = 10010;
 }
 
 // Message that stores parameters used to apply transformation
@@ -1403,4 +1404,37 @@ message PReLUParameter {
   optional FillerParameter filler = 1;
   // Whether or not slope paramters are shared across channels.
   optional bool channel_shared = 2 [default = false];
+}
+
+message CoSDataParameter {
+  // Specify the data source.
+  optional string source = 1;
+  // Specify the batch size.
+  optional uint32 batch_size = 2;
+  // Specify whether to shuffle the input files.
+  optional bool shuffle = 3 [default = false];
+  optional string dataframe_format = 4 [default = "parquet"];
+
+  enum DataType {
+    STRING = 0;
+    INT = 1;
+    FLOAT = 2;
+    INT_ARRAY = 3;
+    FLOAT_ARRAY = 4;
+    ENCODED_IMAGE = 5;
+    RAW_IMAGE = 6;   
+  }
+  message TopBlob {
+    //name to match dataframe column name
+    optional string name = 1;
+    //data type
+    optional DataType type = 2;
+    optional uint32 channels = 3;
+    optional uint32 height = 4;
+    optional uint32 width = 5;
+    //transformer must be specified for ENCODED_IMAGE and RAW_IMAGE
+    optional TransformationParameter transform_param = 6;
+  }
+
+  repeated TopBlob top = 5;
 }
