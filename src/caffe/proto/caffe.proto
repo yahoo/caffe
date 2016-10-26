@@ -1422,19 +1422,32 @@ message CoSDataParameter {
     INT_ARRAY = 3;
     FLOAT_ARRAY = 4;
     ENCODED_IMAGE = 5;
-    RAW_IMAGE = 6;   
+    RAW_IMAGE = 6;
+    ENCODED_IMAGE_WITH_DIM = 7;
   }
+
   message TopBlob {
     //name to match dataframe column name
     optional string name = 1;
     //data type
     optional DataType type = 2;
-    optional uint32 channels = 3;
-    optional uint32 height = 4;
-    optional uint32 width = 5;
+    // pre-transformer (if exists) blob dimensions
+    optional uint32 channels = 3 [default = 0];
+    optional uint32 height = 4 [default = 0];
+    optional uint32 width = 5 [default = 0];
+    // number of axes per sample, not including batch_size.
+    optional uint32 sample_num_axes = 6 [default = 3];
     //transformer must be specified for ENCODED_IMAGE and RAW_IMAGE
-    optional TransformationParameter transform_param = 6;
+    optional TransformationParameter transform_param = 7;
+    // post-transformer (if exists) blob dimensions
+    optional uint32 out_channels = 8 [default = 0];
+    optional uint32 out_height = 9 [default = 0];
+    optional uint32 out_width = 10 [default = 0];
+    // transpose the blob,
+    // only valid for INT_ARRAY and FLOAT_ARRAY
+    optional bool transpose = 11 [default = false];
   }
 
   repeated TopBlob top = 5;
 }
+
